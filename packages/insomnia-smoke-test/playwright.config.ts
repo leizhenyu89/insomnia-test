@@ -19,6 +19,12 @@ const config: PlaywrightTestConfig = {
       testMatch: /migration\/.*.test.ts/,
       retries: 0,
     },
+    {
+      // Complete API workflow testing
+      name: 'Workflow',
+      testMatch: /smoke\/complete-api-workflow.test.ts/,
+      retries: 1,
+    },
   ],
   webServer: {
     command: 'npm run serve',
