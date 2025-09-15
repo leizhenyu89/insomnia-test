@@ -33,9 +33,12 @@ jobs:
           scope: '@kong'
 
       - name: Install packages
-        run: npm install
-        env: 
+        run: |
+          npm ci
+          npm install @kong/insomnia-plugin-external-vault
+        env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
       - name: Lint
         run: npm run lint
