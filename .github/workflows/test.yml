@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - develop
+      - dev-fix
   pull_request:
     types:
       - opened
@@ -33,7 +33,7 @@ jobs:
           scope: '@kong'
 
       - name: Install packages
-        run: npm ci
+        run: npm install
         env: 
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
