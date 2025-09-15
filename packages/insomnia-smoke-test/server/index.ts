@@ -33,6 +33,31 @@ app.get('/pets/:id', (req, res) => {
   res.status(200).send({ id: req.params.id });
 });
 
+app.get('/users/:id', (req, res) => {
+  res.status(200).send({ id: req.params.id, name: `User ${req.params.id}`, email: `user${req.params.id}@example.com` });
+});
+
+app.post('/users', (req, res) => {
+  res
+    .status(201)
+    .send({ id: Math.floor(Math.random() * 1000), name: 'New User', email: 'newuser@example.com', created: true });
+});
+
+app.put('/users/:id', (req, res) => {
+  res
+    .status(200)
+    .send({
+      id: req.params.id,
+      name: `Updated User ${req.params.id}`,
+      email: `user${req.params.id}@example.com`,
+      updated: true,
+    });
+});
+
+app.delete('/users/:id', (req, res) => {
+  res.status(200).send({ id: req.params.id, deleted: true });
+});
+
 app.get('/builds/check/*', (_req, res) => {
   res.status(200).send({
     url: 'https://github.com/Kong/insomnia/releases/download/core@2023.5.6/Insomnia.Core-2023.5.6.zip',

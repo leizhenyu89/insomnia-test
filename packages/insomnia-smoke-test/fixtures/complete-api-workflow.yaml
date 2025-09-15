@@ -1,0 +1,195 @@
+_type: export
+__export_format: 4
+__export_date: 2024-01-01T00:00:00.000Z
+__export_source: insomnia.desktop.app:v2023.5.8
+resources:
+  - _id: wrk_complete_api_workflow
+    parentId: null
+    modified: 1640995200000
+    created: 1640995200000
+    name: Complete API Workflow Test
+    description: Test collection for complete API workflow testing
+    scope: collection
+    _type: workspace
+  
+  - _id: env_base
+    parentId: wrk_complete_api_workflow
+    modified: 1640995200000
+    created: 1640995200000
+    name: Base Environment
+    data:
+      base_url: http://127.0.0.1:4010
+      api_version: v1
+      auth_token: Bearer test-token-123
+      content_type: application/json
+    dataPropertyOrder:
+      "&":
+        - base_url
+        - api_version
+        - auth_token
+        - content_type
+    color: null
+    isPrivate: false
+    metaSortKey: 1640995200000
+    _type: environment
+  
+  - _id: req_get_all_users
+    parentId: wrk_complete_api_workflow
+    modified: 1640995200000
+    created: 1640995200000
+    url: "{{base_url}}/users/1"
+    name: Get User
+    description: Retrieve a user by ID from the API
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: "{{content_type}}"
+      - name: Authorization
+        value: "{{auth_token}}"
+    authentication: {}
+    metaSortKey: 1640995200000
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+
+  - _id: req_create_user
+    parentId: wrk_complete_api_workflow
+    modified: 1640995200000
+    created: 1640995200000
+    url: "{{base_url}}/users"
+    name: Create New User
+    description: Create a new user via POST request
+    method: POST
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "name": "John Doe",
+          "email": "john.doe@example.com",
+          "role": "developer"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: "{{content_type}}"
+      - name: Authorization
+        value: "{{auth_token}}"
+    authentication: {}
+    metaSortKey: 1640995200001
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+
+  - _id: req_update_user
+    parentId: wrk_complete_api_workflow
+    modified: 1640995200000
+    created: 1640995200000
+    url: "{{base_url}}/users/3"
+    name: Update User
+    description: Update an existing user via PUT request
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |
+        {
+          "name": "Jane Doe",
+          "email": "jane.doe@example.com",
+          "role": "senior developer"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: "{{content_type}}"
+      - name: Authorization
+        value: "{{auth_token}}"
+    authentication: {}
+    metaSortKey: 1640995200002
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+
+  - _id: req_delete_user
+    parentId: wrk_complete_api_workflow
+    modified: 1640995200000
+    created: 1640995200000
+    url: "{{base_url}}/users/4"
+    name: Delete User
+    description: Delete a user via DELETE request
+    method: DELETE
+    body: {}
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: "{{content_type}}"
+      - name: Authorization
+        value: "{{auth_token}}"
+    authentication: {}
+    metaSortKey: 1640995200003
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+
+  - _id: unit_test_suite
+    parentId: wrk_complete_api_workflow
+    modified: 1640995200000
+    created: 1640995200000
+    name: API Tests
+    _type: unit_test_suite
+    requests:
+      - requestId: req_get_all_users
+        name: Test GET User
+        code: |
+          // Test response status
+          insomnia.test('Status code is 200', () => {
+            insomnia.expect(insomnia.response.code).to.equal(200);
+          });
+          
+          // Test response structure
+          insomnia.test('Response is an object with user data', () => {
+            const body = insomnia.response.json();
+            insomnia.expect(body).to.be.an('object');
+            insomnia.expect(body).to.have.property('id');
+            insomnia.expect(body).to.have.property('name');
+            insomnia.expect(body).to.have.property('email');
+          });
+          
+          // Test response time
+          insomnia.test('Response time is under 500ms', () => {
+            insomnia.expect(insomnia.response.responseTime).to.be.below(500);
+          });
+      
+      - requestId: req_create_user
+        name: Test Create User
+        code: |
+          // Test response status
+          insomnia.test('Status code is 200', () => {
+            insomnia.expect(insomnia.response.code).to.equal(200);
+          });
+          
+          // Test response body structure
+          insomnia.test('Response contains object data', () => {
+            const body = insomnia.response.json();
+            insomnia.expect(typeof body).to.equal('object');
+          });
