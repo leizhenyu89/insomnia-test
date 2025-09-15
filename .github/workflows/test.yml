@@ -34,8 +34,7 @@ jobs:
 
       - name: Install packages
         run: |
-          npm ci
-          npm install @kong/insomnia-plugin-external-vault
+          npm install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
