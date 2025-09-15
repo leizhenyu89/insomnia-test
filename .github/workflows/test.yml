@@ -32,6 +32,13 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@kong'
 
+      - name: Configure npm for GitHub Packages
+        run: |
+          npm config set @kong:registry https://npm.pkg.github.com
+          npm config set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
+      - name: Install packages
+        run: npm ci
+
       - name: Install packages
         run: |
           npm install
